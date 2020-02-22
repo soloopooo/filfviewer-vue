@@ -37,7 +37,7 @@
     "eslint": "^4.17.0",
     "libflif.js": "github:SaschaNaz/libflif.js#master",
     "npm-free-server": "^1.1.0",
-    "open": "0.0.5",
+    "open": "7.0.2",
     "pre-commit": "^1.2.2"
   },
   "author": "The Jared Wilcurt",
