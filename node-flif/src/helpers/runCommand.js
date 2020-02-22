@@ -1,0 +1,33 @@
+/**
+ * Spawns a child process using the arguments that were passed in.
+ * This is done asynchronously. It will run the callback function
+ * upon completion.
+ * @param  {string}   args     List of arguments to pass in
+ * @param  {function} callback Optional callback function
+ */
+function runCommand (args, callback) {
+    if (!args || typeof(args) !== 'string') {
+        throw '\nERROR: Command line arguments where not supplied to the FLIF executable. See above warning for details.';
+    } else if (callback && typeof(callback) !== 'function') {
+        throw 'The second argument to the runCommand method is meant to be a callback function.';
+    }
+
+    var executablePath = require('./executablePath.js');
+    var exec = require('child_process').exec;
+    var flif = executablePath();
+    var executableAndArgs = flif + ' ' + args;
+
+    exec(executableAndArgs, function (error, stdout) {
+        if (error !== null) {
+            callback(0, error);
+            throw 'Err:' + error;
+        }
+        if (stdout && callback) {
+            callback(1, stdout);
+        } else if (callback) {
+            callback(1, 'success');
+        }
+    });
+}
+
+module.exports = runCommand;
